@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { createError } from "../utils/createError.js";
 
 export const verifyToken = (req, res, next)=>{
-  cosnt token = req.cookies.accessToken;
+  const token = req.cookies.accessToken;
   if (!token) return next(createError(401 , "you are not authentiacted"))
 
   jwt.verify(token , process.env.JWT_KEY ,(err, payload)=>{

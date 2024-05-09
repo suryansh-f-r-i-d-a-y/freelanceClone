@@ -19,7 +19,7 @@ export const register = async (req , res , next)=>{
    }
 }
 
-export const login = async (req , res , next) = {
+export const login = async (req , res , next) => {
         try {
     const user = await User.findOne({username: req.body.username});
         if(!user) return next(createError(404 , "User not found"));
@@ -36,7 +36,7 @@ export const login = async (req , res , next) = {
 
         const {password , ...info} = user.doc;
         res.cookie("accessToken" , token , {
-            httpOnly = true;
+            httpOnly = true
         })
         .status(200)
         .send({info});
