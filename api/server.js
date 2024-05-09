@@ -12,6 +12,10 @@ import cors from 'cors';
 
 const app = express();
 
+app.use(express.json()); 
+app.use(cookieParser());
+app.use(cors());
+
 async () => { }
 try {
     mongoose.connect('mongodb+srv://suryansh1016star:CnYE5277Ip7rxtus@freelance.guyfu7i.mongodb.net/');
@@ -27,6 +31,15 @@ app.use("/api/conversations" , conversationRouter);
 app.use("/api/messages" , messageRouter);
 app.use("/api/reviews" , reviewRouter);
 app.use("/api/auth" , authRouter);
+
+
+app.use((err , req , res , next) => {
+    const errorStatus = err.status || 500;
+    const errorMesssage = err.message || "Something went wrong";
+
+    return res.status(errorStatus).send({errorMesssage});
+});
+
 
 const PORT = 3000;
 

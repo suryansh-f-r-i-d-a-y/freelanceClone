@@ -1,12 +1,10 @@
 import express from 'express';
-import { deleteUser } from '../controllers/user.controller.js'; 
+import { deleteUser } from '../controllers/user.controller.js';
+import verifyToken from '../middleware/jwt.js';
 
 const router = express.Router();
 
-
-router.post('/register' , register );
-router.post('/login' , login );
-router.post('/logout' , logout );
+router.delete('/:id' , verifyToken , deleteUser );
 
 export default router;
 

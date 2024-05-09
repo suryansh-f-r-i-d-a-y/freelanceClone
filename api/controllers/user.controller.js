@@ -1,26 +1,15 @@
 import User from "../models/user.model.js";
+import jwt from "jsonwebtoken";
 
-export const register = async (req , res)=>{
-   try{
-    const newUser = new User({
-        username: "test",
-        email: "test",
-        country: "test",
-    });
+export const deleteUser = async (req, res) =>{
+  const user = await User.findById(req.params.id);
 
-    await newUser.save();
-    res.status(201).send("User created successfully");
 
-   }catch(err){
-    res.status(500).send("something went wrong");
-   }
+
+    if(req.userId !== user._id.toString()){
+      return res.status(403).send("you can delete only your account!");
+    }
+  await User.findByIdAndDelete(req.params.id);
+    res.stauts(200).send("user deleted successfully");
+
 }
-
-export const login = (req , res)=>{
-    res.send("login user");
-}
-
-export const logout = (req , res)=>{
-    res.send("logout user");
-}
-
