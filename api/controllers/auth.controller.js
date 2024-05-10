@@ -42,10 +42,17 @@ export const login = async (req , res , next) = {
         .send({info});
 
         } catch (err) {
-            res.status(500).send("something went wrong");               
+            next(err);             
         }
 }
 
 
-export const logout = (req , res)=>{}
+export const logout = (req , res)=>{
+    res.clearCookie("accessToken",{
+        sameSite: "none",
+        secure: true,
+    })
+        .statu(200)
+    .send("user has been logged out");
+}
 
